@@ -6,6 +6,7 @@ namespace ef_minimal_example.console;
 
 public class DefaultCommand(AccuPrecisionDbContext dbContext) : ICommand
 {
+    public const string CommandKey = "default";
     private readonly AccuPrecisionDbContext dbContext = dbContext;
 
 

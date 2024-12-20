@@ -14,11 +14,11 @@ services.AddDbContext<AccuPrecisionDbContext>(options => options
     .UseMySQL(connectionString)
     .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
 );
-services.AddKeyedSingleton<ICommand, DefaultCommand>("default");
-
-var command = args.FirstOrDefault("default");
+//Todo: register all commands automatically
+services.AddKeyedSingleton<ICommand, DefaultCommand>(DefaultCommand.CommandKey);
 var serviceProvider = services.BuildServiceProvider();
 
+var command = args.FirstOrDefault(DefaultCommand.CommandKey);
 var commandService = serviceProvider.GetKeyedService<ICommand>(command);
 if (commandService != null)
 {

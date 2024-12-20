@@ -17,17 +17,17 @@ public class DefaultCommand(AccuPrecisionDbContext dbContext) : ICommand
         foreach (var breakdown in quote.QuotePartBreakdowns.Where(qpb => qpb.ParentQuotePartBreakdownId == null))
         {
             Console.WriteLine(breakdown.QuotePartBreakdownId + " -> " + breakdown.PartId);
-            RecurseSubParts(breakdown.SubQuotePartBreakdowns, 1);
+            RecurseSubPartBreakdowns(breakdown.SubQuotePartBreakdowns, 1);
         }
     }
 
-    private void RecurseSubParts(IEnumerable<QuotePartBreakdown> subQuotePartBreakdowns, int level)
+    private void RecurseSubPartBreakdowns(IEnumerable<QuotePartBreakdown> subQuotePartBreakdowns, int level)
     {
         foreach (var subBreakdown in subQuotePartBreakdowns)
         {
             var description = subBreakdown.QuotePartBreakdownId + " -> " + subBreakdown.PartId;
             Console.WriteLine(description.PadLeft(4 * level + description.Length));
-            RecurseSubParts(subBreakdown.SubQuotePartBreakdowns, level + 1);
+            RecurseSubPartBreakdowns(subBreakdown.SubQuotePartBreakdowns, level + 1);
         }
     }
 }
